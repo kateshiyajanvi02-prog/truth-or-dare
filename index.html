@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Truth or Dare Challenge</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="app">
+    <header class="header">
+      <div class="logo">✦</div>
+      <p class="eyebrow">THE ULTIMATE PARTY GAME</p>
+      <h1>Truth or <span>Dare?</span></h1>
+      <p class="subtitle">Be honest. Be bold. Have fun!</p>
+    </header>
+
+    <section id="setup" class="panel">
+      <h2>Who's playing? 🎮</h2>
+      <p class="muted">Add players, set rounds, and customize questions.</p>
+
+      <div class="players-header">
+        <label>Players (<span id="playerCount">2</span>)</label>
+        <button type="button" id="addPlayerBtn" class="small-button">+ Add Player</button>
+      </div>
+
+      <div id="playerInputsList" class="player-inputs-list">
+        <!-- Rendered dynamically by script.js -->
+      </div>
+
+      <label for="roundLimit">Number of rounds</label>
+      <select id="roundLimit">
+        <option value="3">3 rounds</option>
+        <option value="5" selected>5 rounds</option>
+        <option value="10">10 rounds</option>
+        <option value="15">15 rounds</option>
+      </select>
+
+      <details class="custom-pool-details">
+        <summary>➕ Add Custom Questions to Pool (Optional)</summary>
+        <div class="custom-pool-content">
+          <p class="muted" style="margin-top: 5px;">Static questions are included by default. Add any custom questions
+            you want in the random pool:</p>
+
+          <label for="newTruthInput">Add Custom Truth</label>
+          <div class="dynamic-input-group">
+            <input id="newTruthInput" type="text" placeholder="e.g. What is your biggest secret?">
+            <button type="button" id="addCustomTruthBtn" class="small-button">Add</button>
+          </div>
+          <ul id="customTruthsList" class="custom-list"></ul>
+
+          <label for="newDareInput">Add Custom Dare</label>
+          <div class="dynamic-input-group">
+            <input id="newDareInput" type="text" placeholder="e.g. Do your best impression of someone here.">
+            <button type="button" id="addCustomDareBtn" class="small-button">Add</button>
+          </div>
+          <ul id="customDaresList" class="custom-list"></ul>
+        </div>
+      </details>
+
+      <button id="startBtn" class="primary">Start the Game →</button>
+      <p id="setupError" class="error" role="alert"></p>
+    </section>
+
+    <section id="game" class="panel hidden">
+      <div class="game-top">
+        <span class="pill" id="roundLabel">ROUND 1</span>
+        <button id="restartBtn" class="small-button">↻ Restart</button>
+      </div>
+
+      <!-- Scoreboard renders dynamically for any number of players -->
+      <div id="scoreboard" class="scoreboard"></div>
+
+      <div class="turn-box">
+        <p class="eyebrow" id="turnAsker">IT'S YOUR TURN</p>
+        <h2 id="turnName">Player 1</h2>
+        <p class="muted" id="turnPrompt">Choose your challenge!</p>
+      </div>
+
+      <div class="choice-buttons">
+        <button id="truthBtn" class="choice truth">
+          <span class="choice-emoji">💭</span>
+          <span>TRUTH</span>
+          <small>Tell the truth</small>
+        </button>
+        <button id="dareBtn" class="choice dare">
+          <span class="choice-emoji">🔥</span>
+          <span>DARE</span>
+          <small>Take the challenge</small>
+        </button>
+      </div>
+
+      <div id="challengeBox" class="challenge hidden" aria-live="polite">
+        <div class="challenge-header">
+          <span id="challengeType" class="pill">TRUTH</span>
+          <button id="shuffleChallengeBtn" type="button" class="pill-btn" title="Pick another default question">🎲
+            Another Question</button>
+        </div>
+
+        <p id="challengeText"></p>
+
+        <!-- Dynamic question input during turn -->
+        <div class="dynamic-question-box">
+          <label class="dynamic-label" id="dynamicLabel">✏️ Or ask a dynamic question instead:</label>
+          <div class="dynamic-input-group">
+            <input id="dynamicInput" type="text" placeholder="Type your own question / dare...">
+            <button id="dynamicSubmitBtn" type="button" class="small-button">Use This</button>
+          </div>
+        </div>
+
+        <p class="muted">Completed the challenge?</p>
+        <div class="challenge-actions">
+          <button id="doneBtn" class="primary">✓ Completed (+10)</button>
+          <button id="skipBtn" class="secondary">Skip (0 points)</button>
+        </div>
+      </div>
+
+      <p id="gameMessage" class="muted message"></p>
+    </section>
+
+    <section id="result" class="panel hidden" aria-live="polite">
+      <div class="winner-icon">🏆</div>
+      <p class="eyebrow">GAME COMPLETED</p>
+      <h2 id="resultTitle">We have a winner!</h2>
+      <p id="resultMessage" class="muted"></p>
+
+      <div id="finalScoresContainer" class="final-scores"></div>
+
+      <button id="playAgainBtn" class="primary">Play Again ↻</button>
+    </section>
+
+    <footer>✨ Made for friends, laughter & memories ✨</footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
